@@ -8,6 +8,8 @@ JackAudio *jack = NULL;
 
 JackAudio::JackAudio(const char *clientName)
 {
+    this->name = clientName;
+
     qDebug() << "(open) opening Audio Client...";
 
     if ((this->client = jack_client_open(clientName, JackNullOption, NULL)) == 0)
@@ -22,11 +24,22 @@ JackAudio::JackAudio(const char *clientName)
     {
         qWarning() <<  "(open) jackAudioClient: Can't activate JACK.";
     }
+
+    qDebug() << "Registerd JACK client with name '" << this->name << "'";
 }
 
 JackAudio::~JackAudio()
 {
     jack_client_close(this->client);
+}
+
+const char *JackAudio::getName()
+{
+    if (this->name == NULL)
+    {
+        return NULL;
+    }
+    return this->name;
 }
 
 void JackAudio::createPort(const char *portName, JackAudio::PortType portType)
@@ -48,11 +61,19 @@ jack_client_t *JackAudio::getClient()
     return this->client;
 }
 
+int JackAudio::connectPort(QString sourcePort, QString destinationPort)
+{
+    jack_connect(this->client,
+                 sourcePort.toStdString().c_str(),
+                 destinationPort.toStdString().c_str());
+    return 0;
+}
+
 JackAudioPort::JackAudioPort(JackAudio *jackClient, const char *portName, unsigned long flags)
 {
     this->name = portName;
+    this->client = client;
     this->port = jack_port_register(jackClient->getClient(), portName, JACK_DEFAULT_AUDIO_TYPE, flags, 0);
-
 }
 
 float JackAudioPort::getPeak()

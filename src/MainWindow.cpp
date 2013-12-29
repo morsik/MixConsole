@@ -20,7 +20,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     for (i = 0; i < _max; i++)
     {
-        jack->createPort(QString("in_%1").arg(i + 1).toStdString().c_str(), JackAudio::JACK_INPUT_PORT);
+        QString portName = QString("in_%1").arg(i + 1);
+        jack->createPort(portName.toStdString().c_str(), JackAudio::JACK_INPUT_PORT);
+        jack->connectPort(QString("system:capture_%1").arg(i + 1),
+                          QString("%1:%2").arg(jack->getName(), portName));
 
         MeterWidget *meter = new MeterWidget();
         meter->setFixedWidth(6);
@@ -56,7 +59,10 @@ MainWindow::MainWindow(QWidget *parent) :
     _max = 8;
     for (i = 0; i < _max; i++)
     {
-        jack->createPort(QString("monitor_%1").arg(i + 1).toStdString().c_str(), JackAudio::JACK_INPUT_PORT);
+        QString portName = QString("mon_%1").arg(i + 1);
+        jack->createPort(portName.toStdString().c_str(), JackAudio::JACK_INPUT_PORT);
+        jack->connectPort(QString("system:monitor_%1").arg(i + 1),
+                          QString("%1:%2").arg(jack->getName(), portName));
 
         MeterWidget *meter = new MeterWidget();
         meter->setFixedWidth(6);

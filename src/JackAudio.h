@@ -28,10 +28,12 @@ signals:
 
 private:
     const char *name;
+    JackAudio *client;
 };
 
-class JackAudio
+class JackAudio : public QObject
 {
+    Q_OBJECT
 public:
     enum PortType
     {
@@ -45,14 +47,18 @@ public:
     void createPort(const char* portName, PortType type);
     void deletePort();
 
+    int connectPort(QString sourcePort, QString destinationPort);
+
     jack_client_t *getClient();
+
+    const char *getName();
 
     QVector<JackAudioPort *>ports;
 
 private:
     jack_client_t *client;
 
-
+    const char *name;
 };
 
 
