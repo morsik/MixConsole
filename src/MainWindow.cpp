@@ -32,7 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->inputsGrid->addWidget(meter, 0, i);
 
         QLabel *label = new QLabel(QString("%1").arg(i + 1));
+        label->setStyleSheet(QString("font-size: 5pt"));
         ui->inputsGrid->addWidget(label, 1, i);
+        ui->inputsGrid->setColumnMinimumWidth(i, 12);
     }
 
     QHBoxLayout *inputLabelLayout = new QHBoxLayout();
@@ -48,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
         inputLabelLine[i]->setFrameShadow(QFrame::Plain);
         inputLabelLine[i]->setStyleSheet(QString("background-color: #f00;"));
         inputLabelLine[i]->setMaximumHeight(1);
+        inputLabelLine[i]->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     }
 
     inputLabelLayout->addWidget(inputLabelLine[0]);
@@ -56,7 +59,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->inputsGrid->addLayout(inputLabelLayout, 2, 0, 1, _max);
 
     // Create Output (Monitor) Meters
-    _max = 8;
     for (i = 0; i < _max; i++)
     {
         QString portName = QString("mon_%1").arg(i + 1);
@@ -71,7 +73,9 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->outputsGrid->addWidget(meter, 0, i);
 
         QLabel *label = new QLabel(QString("%1").arg(i + 1));
+        label->setStyleSheet(QString("font-size: 5pt"));
         ui->outputsGrid->addWidget(label, 1, i);
+        ui->outputsGrid->setColumnMinimumWidth(i, 12);
     }
 
     QHBoxLayout *outputLabelLayout = new QHBoxLayout();
@@ -87,6 +91,7 @@ MainWindow::MainWindow(QWidget *parent) :
         outputLabelLine[i]->setFrameShadow(QFrame::Plain);
         outputLabelLine[i]->setStyleSheet(QString("background-color: #f00;"));
         outputLabelLine[i]->setMaximumHeight(1);
+        outputLabelLine[i]->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     }
 
     outputLabelLayout->addWidget(outputLabelLine[0]);

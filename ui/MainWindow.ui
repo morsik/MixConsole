@@ -6,15 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>240</height>
-   </rect>
-  </property>
-  <property name="maximumSize">
-   <size>
     <width>640</width>
     <height>240</height>
-   </size>
+   </rect>
   </property>
   <property name="windowTitle">
    <string>MixConsole</string>
@@ -92,7 +86,10 @@ s
       <item>
        <layout class="QGridLayout" name="inputsGrid">
         <property name="sizeConstraint">
-         <enum>QLayout::SetDefaultConstraint</enum>
+         <enum>QLayout::SetNoConstraint</enum>
+        </property>
+        <property name="horizontalSpacing">
+         <number>1</number>
         </property>
        </layout>
       </item>
@@ -117,6 +114,9 @@ s
         <property name="sizeConstraint">
          <enum>QLayout::SetDefaultConstraint</enum>
         </property>
+        <property name="horizontalSpacing">
+         <number>1</number>
+        </property>
        </layout>
       </item>
      </layout>
@@ -128,8 +128,8 @@ s
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>320</width>
-     <height>18</height>
+     <width>640</width>
+     <height>16</height>
     </rect>
    </property>
   </widget>
