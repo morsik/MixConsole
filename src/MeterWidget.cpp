@@ -31,22 +31,22 @@ void MeterWidget::resizeEvent(QResizeEvent *)
 
     int size = this->height();
 
-    if (this->graphicsDark != NULL)
+    if (!this->graphicsDark)
     {
         delete this->graphicsDark;
     }
 
-    if (this->graphicsLight != NULL)
+    if (!this->graphicsLight)
     {
         delete this->graphicsLight;
     }
 
     // initialize dark graphics
-    this->graphicsDark = new QImage(this->width(), size, QImage::Format_ARGB32);
+    this->graphicsDark = new QPixmap(this->width(), size);
     this->graphicsDark->fill(Qt::transparent);
 
     // initialize light graphics
-    this->graphicsLight = new QImage(this->width(), size, QImage::Format_ARGB32);
+    this->graphicsLight = new QPixmap(this->width(), size);
     this->graphicsLight->fill(Qt::transparent);
 
     QPainter darkPainter(this->graphicsDark);
@@ -97,8 +97,8 @@ void MeterWidget::paintEvent(QPaintEvent *)
     int height = max * size;
     int split = iec_scale(20.0f * log10f(this->peak), max);
 
-    painter.drawImage(0, 0, this->graphicsDark->copy(0, 0, this->graphicsDark->width(), this->graphicsDark->height() - split * size));
-    painter.drawImage(0, height - split * size, this->graphicsLight->copy(0, height - split * size, this->graphicsLight->width(), this->graphicsLight->height()));
+    painter.drawPixmap(0, 0, this->graphicsDark->copy(0, 0, this->graphicsDark->width(), this->graphicsDark->height() - split * size));
+    painter.drawPixmap(0, height - split * size, this->graphicsLight->copy(0, height - split * size, this->graphicsLight->width(), this->graphicsLight->height()));
 }
 
 void MeterWidget::setValue(float dB)

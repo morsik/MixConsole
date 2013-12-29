@@ -25,8 +25,8 @@ private:
     void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
 
-    QImage *graphicsLight;
-    QImage *graphicsDark;
+    QPixmap *graphicsLight;
+    QPixmap *graphicsDark;
 
     float peak;
 
