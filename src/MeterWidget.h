@@ -11,6 +11,7 @@ class MeterWidget : public QWidget
     Q_OBJECT
 public:
     explicit MeterWidget(QWidget *parent = 0);
+    ~MeterWidget();
 
 signals:
 
@@ -33,8 +34,6 @@ private:
     int _spaceSize;
 
     float _last_split;
-
-    QTimer *falloffTimer;
 
     bool _first_update;
 };

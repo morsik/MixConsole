@@ -12,8 +12,17 @@ MeterWidget::MeterWidget(QWidget *parent) :
     this->_blockSize = 1;
     this->_spaceSize = 1;
 
+    this->graphicsDark = NULL;
+    this->graphicsLight = NULL;
+
     this->setMinimumHeight(32);
     this->setMinimumWidth(1);
+}
+
+MeterWidget::~MeterWidget()
+{
+    delete this->graphicsDark;
+    delete this->graphicsLight;
 }
 
 void MeterWidget::resizeEvent(QResizeEvent *)
@@ -21,6 +30,16 @@ void MeterWidget::resizeEvent(QResizeEvent *)
     int i = 0;
 
     int size = this->height();
+
+    if (this->graphicsDark != NULL)
+    {
+        delete this->graphicsDark;
+    }
+
+    if (this->graphicsLight != NULL)
+    {
+        delete this->graphicsLight;
+    }
 
     // initialize dark graphics
     this->graphicsDark = new QImage(this->width(), size, QImage::Format_ARGB32);
