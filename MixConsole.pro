@@ -13,15 +13,18 @@ TEMPLATE = app
 
 LIBS += -ljack
 
-SOURCES += src/main.cpp\
-        src/MainWindow.cpp \
+SOURCES += \
+    src/main.cpp \
+    src/MainWindow.cpp \
     src/MeterWidget.cpp \
     src/JackAudio.cpp \
     src/utils.cpp
 
-HEADERS  += src/MainWindow.h \
+HEADERS += \
+    src/MainWindow.h \
     src/MeterWidget.h \
     src/JackAudio.h \
     src/utils.h
 
-FORMS    += ui/MainWindow.ui
+FORMS += \
+    ui/MainWindow.ui
