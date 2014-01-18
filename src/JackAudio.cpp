@@ -35,10 +35,6 @@ JackAudio::~JackAudio()
 
 const char *JackAudio::getName()
 {
-    if (this->name == NULL)
-    {
-        return NULL;
-    }
     return this->name;
 }
 
@@ -105,80 +101,3 @@ int jackProcessCallback(jack_nframes_t nframes, void */*arg*/)
 
     return 0;
 }
-
-
-
-
-
-
-
-
-/*
-bool JackAudio::runJACK()
-{
-//connecting to JACK server
-qDebug() << "(open) opening MIDI Client...";
-if ((this->jackMidiClient = jack_client_open("MixConsole", JackNullOption, NULL)) == 0)
-{
-qWarning() << "(open) JACK server not found, aborting...";
-exit(false);
-}
-this->jackMidiPort = jack_port_register(this->jackMidiClient, "QtJack_MIDI_In", JACK_DEFAULT_MIDI_TYPE, JackPortIsInput, 0);
-
-jack_set_process_callback(this->jackMidiClient,
-                  jackMidiCallback,
-                  NULL);
-
-if (jack_activate(jackMidiClient))
-{
-qWarning() <<  "(open) jackMidiClient: Can't activate JACK.";
-exit(false);
-}
-qDebug() << "(open) opening Audio Client...";
-if ((this->jackAudioClient = jack_client_open("QtJackAudio", JackNullOption, NULL)) == 0)
-{
-qWarning() << "(open) JACK server not found, aborting...";
-exit(false);
-}
-this->jackAudioPort = jack_port_register(this->jackAudioClient, "QtJack_Audio_Out", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
-jack_set_process_callback(this->jackAudioClient, jackAudioCallback, NULL);
-if (jack_activate(this->jackAudioClient))
-{
-qWarning() <<  "(open) jackAudioClient: Can't activate JACK.";
-exit(false);
-}
-//connecting to audio audio and midi ports
-const char** audioPorts;
-const char** midiPorts;
-if ((audioPorts = jack_get_ports(this->jackAudioClient, NULL, JACK_DEFAULT_AUDIO_TYPE, JackPortIsPhysical|JackPortIsInput)) == NULL)
-{
-qWarning() << "(open) Cannot find any physical audio playback ports";
-//   exit(false);
-} else
-{
-int n = 0;
-while (audioPorts[n] != NULL)// connecting to all available physical audio playback ports
-{
-qDebug() << "(open) Audio output found:" << audioPorts[n];
-n++;
-}
-}
-if ((midiPorts = jack_get_ports(this->jackMidiClient, NULL, JACK_DEFAULT_MIDI_TYPE, JackPortIsOutput)) == NULL)
-{
-qWarning() << "(open) Cannot find any MIDI capture ports";
-//   exit(false);
-}
-else
-{
-int n = 0;
-while (midiPorts[n] != NULL)// connecting to all available physical audio playback ports
-{
-qDebug() << "(open) MIDI input found:" << midiPorts[n];
-n++;
-}
-}
-
-jack_free(audioPorts);
-jack_free(midiPorts);
-return(true);
-}*/
